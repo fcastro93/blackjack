@@ -22,6 +22,8 @@ numbers = {
     12: "King"
 }
 
+hands = {}
+
 
 # Main method, controls the entire game and calls other methods
 def game():
@@ -34,8 +36,10 @@ def game():
 
     for player in range(players):
         [draw(cards, cards_dealt, turn_player, players) for _ in range(2)]
+    print("********")
 
-    draw(cards, cards_dealt, turn_player, players)
+    show_hands(turn_player)
+    # draw(cards, cards_dealt, turn_player, players)
 
 
 # Draw cards
@@ -45,9 +49,10 @@ def draw(cards, cards_dealt, turn_player, players):
         while True:
             type = randint(0, 3)
             number = randint(0, 12)
-            card = "{0}/{1}".format(types[type],numbers[number])
+            card = "{0}/{1}".format(types[type], numbers[number])
             if card not in cards_dealt:
                 cards_dealt.append(card)
+                hands[turn_player] = number
                 print(str(card))
                 if turn_player == players:
                     turn_player = 1
@@ -55,6 +60,11 @@ def draw(cards, cards_dealt, turn_player, players):
                     turn_player += 1
                 return card
 
+
+def show_hands(turn_player):
+    for card in hands:
+        print("Player {0}".format(turn_player))
+        print (hands.get(turn_player))
 
 # Run program
 game()
